@@ -15,6 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.opt.clipboard = "unnamedplus"
 -- end bootstrap
 
+vim.g.mapleader = " "
+
 
 -- plugins
 
