@@ -23,16 +23,15 @@ vim.g.mapleader = " "
 require("lazy").setup({
  'tpope/vim-surround',
  'nvim-lua/plenary.nvim',
- {'nvim-telescope/telescope.nvim',
- keys={
-	 {
-		 "<leader>pf",
-		 function() require("telescope.builtin").find_files({cwd = require("lazy.core.config").options.root}) end,
-		 desc = "Find Plugin File",
-	 },
- },
- },
- {'nvim-treesitter/nvim-treesitter', build=":TSUpdate"}
+ {'nvim-telescope/telescope.nvim'},
+ { "rose-pine/neovim", name = "rose-pine" },
+ {'nvim-treesitter/nvim-treesitter', build=":TSUpdate"},
+ {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+},
+"mbbill/undotree"
 })
 
 require "maps"
