@@ -25,13 +25,15 @@ require("lazy").setup({
  'nvim-lua/plenary.nvim',
  {'nvim-telescope/telescope.nvim'},
  { "rose-pine/neovim", name = "rose-pine" },
+ { 'jokajak/keyseer.nvim', version = false },
  {'nvim-treesitter/nvim-treesitter', build=":TSUpdate"},
  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" }
 },
-"mbbill/undotree"
+"mbbill/undotree",
+"tpope/vim-fugitive"
 })
 
 require "maps"
