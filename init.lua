@@ -43,7 +43,19 @@ require("lazy").setup({
 {'hrsh7th/cmp-nvim-lsp'},
 {'hrsh7th/nvim-cmp'},
 {'L3MON4D3/LuaSnip'},
+'MunifTanjim/prettier.nvim',
+{
+	"folke/which-key.nvim",
+  event = "VeryLazy",
+  init = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
+  end,
+  opts = {}
+  },
 })
+
+
 
 require "maps"
 
