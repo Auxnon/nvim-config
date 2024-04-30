@@ -38,6 +38,10 @@ require("formatter").setup({
 				}
 			end,
 		},
+        nix={
+			require("formatter.filetypes.nix")["nixpkgs-fmt"]
+        },
+
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
