@@ -1,6 +1,9 @@
 -- Utilities for creating configurations
 local util = require("formatter.util")
 
+local function get_path()
+    			    return util.escape_path(util.get_current_buffer_file_path())
+                        end
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup({
 	-- Enable or disable logging
@@ -30,7 +33,7 @@ require("formatter").setup({
 					args = {
 						"--search-parent-directories",
 						"--stdin-filepath",
-						util.escape_path(util.get_current_buffer_file_path()),
+                        get_path(),
 						"--",
 						"-",
 					},
@@ -39,9 +42,17 @@ require("formatter").setup({
 			end,
 		},
         nix={
-			require("formatter.filetypes.nix")["nixpkgs-fmt"]
+			require("formatter.filetypes.nix"),
+            function()
+                return {
+                    exe="nixpkgs-fmt",
+                    -- args={
+                    --     get_path()
+                    -- },
+                    stdin=true
+                }
+            end,
         },
-
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
