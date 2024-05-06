@@ -46,10 +46,10 @@ require("lazy").setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 
 	{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
-	{ "neovim/nvim-lspconfig" },
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/nvim-cmp" },
-	{ "L3MON4D3/LuaSnip" },
+	"neovim/nvim-lspconfig",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/nvim-cmp",
+	"L3MON4D3/LuaSnip",
 	"MunifTanjim/prettier.nvim",
 	{
 		"folke/which-key.nvim",
@@ -91,6 +91,18 @@ require("lazy").setup({
 		lazy = false,
 	},
 	"mhartington/formatter.nvim",
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+	{
+		"saecki/crates.nvim",
+		tag = "stable",
+		config = function()
+			require("crates").setup()
+		end,
+	},
 })
 
 require("maps")
