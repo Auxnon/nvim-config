@@ -11,8 +11,10 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-vim.opt.clipboard = "unnamedplus"
 -- end bootstrap
+
+vim.opt.clipboard = "unnamedplus"
+vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
@@ -103,6 +105,7 @@ require("lazy").setup({
 			require("crates").setup()
 		end,
 	},
+	"rcarriga/nvim-notify",
 })
 
 require("maps")
