@@ -18,3 +18,4 @@ vim.keymap.set("n", "<leader>sR", function()
       vim.cmd(":%s/\\<" .. old_word .. "\\>/" .. new_word .. "/g")
     end
 end)
+vim.keymap.set("n", "<C-s>", '<Cmd>:Format<CR><Cmd>:w<CR>')
