@@ -23,6 +23,8 @@ vim.opt.smartindent = true
 vim.bo.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
+vim.wo.number = true
+vim.wo.relativenumber = true
 -- vim.opt.number=true
 -- vim.opt.relativenumber=true
 -- vim.opt.signcolumn="number"
@@ -108,6 +110,20 @@ require("lazy").setup({
 	},
 	"rcarriga/nvim-notify",
 	"mfussenegger/nvim-dap",
+	{
+		"stevearc/oil.nvim",
+		---@module 'oil'
+		---@type oil.SetupOpts
+		opts = {
+			keymaps = {
+				["q"] = "actions.close",
+			},
+		},
+		-- Optional dependencies
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+	},
+	"ggandor/leap.nvim",
 })
 
 require("maps")

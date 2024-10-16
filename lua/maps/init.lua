@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", "<Cmd>Oil --float .<CR>")
 
 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
 -- vim.keymap.set("n", "K", function() vim.lsp.inlay_hint.enable(true) end, opts)
@@ -19,3 +20,4 @@ vim.keymap.set("n", "<leader>sR", function()
     end
 end)
 vim.keymap.set("n", "<C-s>", '<Cmd>:Format<CR><Cmd>:w<CR>')
+-- require('leap').create_default_mappings()
