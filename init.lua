@@ -29,6 +29,7 @@ vim.wo.relativenumber = true
 -- vim.opt.relativenumber=true
 -- vim.opt.signcolumn="number"
 
+vim.g.surround_no_mappings = true
 -- plugins
 
 require("lazy").setup({
@@ -89,9 +90,7 @@ require("lazy").setup({
 	},
 	{
 		"numToStr/Comment.nvim",
-		opts = {
-			-- add any options here
-		},
+		opts = {},
 		lazy = false,
 	},
 	"mhartington/formatter.nvim",
