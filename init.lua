@@ -123,8 +123,9 @@ require("lazy").setup({
 		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 	},
 	"ggandor/leap.nvim",
+	"wellle/targets.vim",
 })
 
 require("maps")
 
-print("nvim lua loaded")
+print("🌻")
