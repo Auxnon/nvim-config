@@ -30,11 +30,12 @@ vim.keymap.set("n", "<leader>sR", function()
 		vim.cmd(":%s/\\<" .. old_word .. "\\>/" .. new_word .. "/g")
 	end
 end)
-vim.keymap.set("n", "<C-s>", "<Cmd>:Format<CR><Cmd>:w<CR>")
+local k = vim.keymap
+k.set("n", "<C-s>", "<Cmd>:Format<CR><Cmd>:w<CR>")
+k.set("n", "Y", "_y$")
 require("leap").create_default_mappings()
 require("leap.user").set_repeat_keys("<enter>", "<backspace>")
 
-local k = vim.keymap
 k.set("n", "ds", "<Plug>Dsurround")
 k.set("n", "cs", "<Plug>Csurround")
 k.set("n", "cS", "<Plug>CSurround")
