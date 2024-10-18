@@ -32,7 +32,18 @@ vim.keymap.set("n", "<leader>sR", function()
 end)
 local k = vim.keymap
 k.set("n", "<C-s>", "<Cmd>:Format<CR><Cmd>:w<CR>")
-k.set("n", "Y", "_y$")
+k.set("n", "Y", function()
+	local count = math.max(vim.v.count, 1)
+	local current_row = vim.api.nvim_win_get_cursor(vim.api.nvim_get_current_win())[1]
+	local res = ""
+	for i = 1, count do
+		local f = vim.api.nvim_buf_get_lines(0, current_row - 1, current_row, false)[1]
+		local stripped = string.gsub(f, "%s+", "")
+		res = res .. stripped
+		current_row = current_row + 1
+	end
+	vim.fn.setreg("+", res)
+end, { desc = "copy one or more lines stripping trailing whitespace and new lines into one" })
 require("leap").create_default_mappings()
 require("leap.user").set_repeat_keys("<enter>", "<backspace>")
 
