@@ -32,7 +32,7 @@ vim.wo.relativenumber = true
 vim.g.surround_no_mappings = true
 -- plugins
 
-require("lazy").setup({
+require "lazy".setup({
 	"tpope/vim-surround",
 	"nvim-lua/plenary.nvim",
 	{ "nvim-telescope/telescope.nvim" },
@@ -66,29 +66,6 @@ require("lazy").setup({
 		opts = {},
 	},
 	{
-		"luukvbaal/statuscol.nvim",
-		config = function()
-			local builtin = require("statuscol.builtin")
-			require("statuscol").setup({
-				-- configuration goes here, for example:
-				setopt = true,
-				relculright = true,
-				segments = {
-					{ text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-					{
-						sign = { name = { "Diagnostic" }, maxwidth = 2, auto = true },
-						click = "v:lua.ScSa",
-					},
-					{ text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
-					{
-						sign = { name = { ".*" }, maxwidth = 2, colwidth = 1, auto = true, wrap = true },
-						click = "v:lua.ScSa",
-					},
-				},
-			})
-		end,
-	},
-	{
 		"numToStr/Comment.nvim",
 		opts = {},
 		lazy = false,
@@ -103,9 +80,7 @@ require("lazy").setup({
 	{
 		"saecki/crates.nvim",
 		tag = "stable",
-		config = function()
-			require("crates").setup()
-		end,
+		config = function() require("crates").setup() end,
 	},
 	"rcarriga/nvim-notify",
 	"mfussenegger/nvim-dap",
@@ -119,8 +94,16 @@ require("lazy").setup({
 				["q"] = "actions.close",
 				--  ["g?"] = "actions.show_help",
 				["<CR>"] = "actions.select",
-				["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
-				["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+				["<C-s>"] = {
+					"actions.select",
+					opts = { vertical = true },
+					desc = "Open the entry in a vertical split",
+				},
+				["<C-h>"] = {
+					"actions.select",
+					opts = { horizontal = true },
+					desc = "Open the entry in a horizontal split",
+				},
 				["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 				["<C-p>"] = "actions.preview",
 				["<C-c>"] = "actions.close",
@@ -162,12 +145,17 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-    {'akinsho/toggleterm.nvim', version = "*", opts={
-        open_mapping = [[<c-t>]],
-        shell="fish",
-    }}
+	{ "akinsho/toggleterm.nvim", version = "*", opts = {
+		open_mapping = [[<c-t>]],
+		shell = "fish",
+	} },
+	{
+		"chentoast/marks.nvim",
+		event = "VeryLazy",
+		opts = {},
+	},
 })
 
 require("maps")
 
-print("🌻")
+print "🌻"
