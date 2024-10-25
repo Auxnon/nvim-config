@@ -1,9 +1,16 @@
 -- Utilities for creating configurations
 local util = require("formatter.util")
 
-local function get_path()
-    			    return util.escape_path(util.get_current_buffer_file_path())
-                        end
+local function get_path() return util.escape_path(util.get_current_buffer_file_path()) end
+
+function format_prettier()
+	return {
+		exe = "npx",
+		args = { "prettier", "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
+		stdin = true,
+	}
+end
+
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup({
 	-- Enable or disable logging
@@ -32,8 +39,8 @@ require("formatter").setup({
 					exe = "stylua",
 					args = {
 						"--search-parent-directories",
-						"--stdin-filepath",
-                        get_path(),
+						-- "--config-path",
+						-- get_path(),
 						"--",
 						"-",
 					},
@@ -41,18 +48,21 @@ require("formatter").setup({
 				}
 			end,
 		},
-        nix={
+		nix = {
 			require("formatter.filetypes.nix"),
-            function()
-                return {
-                    exe="nixpkgs-fmt",
-                    -- args={
-                    --     get_path()
-                    -- },
-                    stdin=true
-                }
-            end,
-        },
+			function()
+				return {
+					exe = "nixpkgs-fmt",
+					-- args={
+					--     get_path()
+					-- },
+					stdin = true,
+				}
+			end,
+		},
+		typescript = {
+			format_prettier,
+		},
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
