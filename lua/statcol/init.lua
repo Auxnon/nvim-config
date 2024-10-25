@@ -1,6 +1,7 @@
 local m = {}
 -- local colors =
 -- 	{ "#caa6f7", "#c1a6f1", "#b9a5ea", "#b1a4e4", "#aba3dc", "#a5a2d4", "#9fa0cc", "#9b9ec4", "#979cbc", "#949ab3" }
+require('gitsigns').setup()
 local colors = { "#dfaad1", "#af859e", "#7f6370","#504348","#252525"}
 vim.api.nvim_set_hl(0, "Hiyo", {
 	-- Check the `nvim_set_hl()` help file to see all the available options
