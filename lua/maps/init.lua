@@ -31,6 +31,9 @@ vim.keymap.set("n", "<leader>sR", function()
 	end
 end)
 local k = vim.keymap
+k.set("n", "<leader>lr", function()
+	vim.lsp.buf.rename()
+end, { desc = "lsp replace word" })
 k.set("n", "<C-s>", "<Cmd>:Format<CR><Cmd>:w<CR>")
 k.set("n", "Y", function()
 	local count = math.max(vim.v.count, 1)
