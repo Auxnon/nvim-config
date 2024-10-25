@@ -25,6 +25,7 @@ vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
 vim.wo.number = true
 vim.wo.relativenumber = true
+vim.o.statuscolumn = "%!v:lua.require('statcol').statcol()"
 -- vim.opt.number=true
 -- vim.opt.relativenumber=true
 -- vim.opt.signcolumn="number"
@@ -154,6 +155,7 @@ require "lazy".setup({
 		event = "VeryLazy",
 		opts = {},
 	},
+	"lewis6991/gitsigns.nvim",
 })
 
 require("maps")
