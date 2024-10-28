@@ -23,7 +23,7 @@ require('lualine').setup {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_x = {'encoding',  'filetype','hostname'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
@@ -31,8 +31,8 @@ require('lualine').setup {
     lualine_a = {},
     lualine_b = {},
     lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
+    lualine_x = {'hostname'},
+    lualine_y = {'location'},
     lualine_z = {}
   },
   tabline = {},
