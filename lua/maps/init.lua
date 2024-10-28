@@ -3,9 +3,7 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", "<Cmd>Oil --float .<CR>")
 
 local opts = nil
-vim.keymap.set("n", "gd", function()
-	vim.lsp.buf.definition()
-end, opts)
+vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
 -- vim.keymap.set("n", "K", function() vim.lsp.inlay_hint.enable(true) end, opts)
 vim.keymap.set("n", "K", function()
 	vim.lsp.buf.hover()
@@ -28,14 +26,11 @@ vim.keymap.set("n", "<leader>sR", function()
 	local old_word = vim.fn.expand("<cword>")
 	local new_word = vim.fn.input("Replace " .. old_word .. " by? ", old_word)
 	-- Check if the new_word is different from the old_word and is not empty
-	if new_word ~= old_word and new_word ~= "" then
-		vim.cmd(":%s/\\<" .. old_word .. "\\>/" .. new_word .. "/g")
-	end
+	if new_word ~= old_word and new_word ~= "" then vim.cmd(":%s/\\<" .. old_word .. "\\>/" .. new_word .. "/g") end
 end)
 local k = vim.keymap
-k.set("n", "<leader>lr", function()
-	vim.lsp.buf.rename()
-end, { desc = "lsp replace word" })
+k.set("n", "<leader>lr", function() vim.lsp.buf.rename() end, { desc = "lsp replace word" })
+k.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { desc = "Overview" })
 k.set("n", "<C-s>", "<Cmd>:Format<CR><Cmd>:w<CR>")
 k.set("n", "Y", function()
 	local count = math.max(vim.v.count, 1)
@@ -47,7 +42,7 @@ k.set("n", "Y", function()
 		res = res .. stripped
 		current_row = current_row + 1
 	end
-	vim.fn.setreg("+", res)
+	vim.fn.setreg(LocalVim and "+" or "", res)
 end, { desc = "copy one or more lines stripping trailing whitespace and new lines into one" })
 require("leap").create_default_mappings()
 require("leap.user").set_repeat_keys("<enter>", "<backspace>")

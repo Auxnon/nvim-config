@@ -1,4 +1,5 @@
--- bootstrap lazy package manager
+-- set to false to make clipboard use osc52 mode, otherwise force unnamedplus for that juicy clippy goodness
+LocalVim=false
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -13,7 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- end bootstrap
 
-vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
@@ -31,6 +31,23 @@ vim.o.statuscolumn = "%!v:lua.require('statcol').statcol()"
 -- vim.opt.signcolumn="number"
 
 vim.g.surround_no_mappings = true
+
+if localVim then
+	vim.opt.clipboard = "unnamedplus"
+else
+	vim.g.clipboard = {
+		name = "OSC 52",
+		copy = {
+			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+		},
+		paste = {
+			["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+			["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+		},
+	}
+end
+
 -- plugins
 
 require "lazy".setup({
@@ -156,6 +173,7 @@ require "lazy".setup({
 		opts = {},
 	},
 	"lewis6991/gitsigns.nvim",
+	"catgoose/telescope-helpgrep.nvim",
 })
 
 require("maps")
