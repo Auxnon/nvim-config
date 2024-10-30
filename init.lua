@@ -37,7 +37,7 @@ vim.o.statuscolumn = "%!v:lua.require('statcol').statcol()"
 
 vim.g.surround_no_mappings = true
 
-if localVim then
+if LocalVim then
 	vim.opt.clipboard = "unnamedplus"
 else
 	vim.g.clipboard = {
