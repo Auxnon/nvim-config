@@ -1,5 +1,6 @@
 -- set to false to make clipboard use osc52 mode, otherwise force unnamedplus for that juicy clippy goodness
 LocalVim=false
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -22,6 +23,10 @@ vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a
 vim.opt.smartindent = true
 vim.bo.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
+
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 vim.wo.number = true
 vim.wo.relativenumber = true
