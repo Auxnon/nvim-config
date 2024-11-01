@@ -19,7 +19,7 @@ m.statcol = function()
 	return table.concat({
 		-- m.folds(),
 		-- m.git(),
-        "%s%=%",
+        "%s%C%=%",
 		m.number(),
 		m.border(),
 	}, " ")

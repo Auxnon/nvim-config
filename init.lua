@@ -1,5 +1,5 @@
 -- set to false to make clipboard use osc52 mode, otherwise force unnamedplus for that juicy clippy goodness
-LocalVim=false
+LocalVim = false
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -23,7 +23,6 @@ vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a
 vim.opt.smartindent = true
 vim.bo.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
-
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -54,6 +53,13 @@ else
 		},
 	}
 end
+
+-- for ufo
+vim.o.foldcolumn = "1" -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+-- end ufo
 
 -- plugins
 
@@ -124,7 +130,7 @@ require "lazy".setup({
 				-- 	opts = { vertical = true },
 				-- 	desc = "Open the entry in a vertical split",
 				-- },
-				["<C-s>"] = function() require'oil'.save{confirm=false}end,
+				["<C-s>"] = function() require "oil".save { confirm = false } end,
 				["<C-h>"] = {
 					"actions.select",
 					opts = { horizontal = true },
@@ -200,6 +206,7 @@ require "lazy".setup({
 		},
 	},
 	"catgoose/telescope-helpgrep.nvim",
+	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 })
 
 require("maps")

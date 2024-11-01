@@ -8,6 +8,13 @@ end)
 
 -- here you can setup the language servers
 local lspconfig = require("lspconfig")
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
+
 -- to learn how to use mason.nvim
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
 require("mason").setup({})
@@ -16,9 +23,12 @@ require("mason-lspconfig").setup({
 	-- 'rust_analyzer',
 	--  },
 	handlers = {
-		function(server_name) lspconfig[server_name].setup({}) end,
+		function(server_name) lspconfig[server_name].setup({
+		capabilities = capabilities,
+        }) end,
 	},
 })
+require('ufo').setup()
 
 if lspconfig.lua_ls then
 	lspconfig.lua_ls.setup({
