@@ -16,9 +16,7 @@ require("mason-lspconfig").setup({
 	-- 'rust_analyzer',
 	--  },
 	handlers = {
-		function(server_name)
-			lspconfig[server_name].setup({})
-		end,
+		function(server_name) lspconfig[server_name].setup({}) end,
 	},
 })
 
@@ -32,6 +30,35 @@ if lspconfig.lua_ls then
 			},
 		},
 	})
+end
+
+if lspconfig.emmet_ls then
+	lspconfig.emmet_ls.setup {
+		-- on_attach = on_attach,
+		capabilities = capabilities,
+		filetypes = {
+			"css",
+			"eruby",
+			"html",
+			"javascript",
+			"javascriptreact",
+			"less",
+			"sass",
+			"scss",
+			"svelte",
+			"pug",
+			"typescriptreact",
+			"vue",
+		},
+		init_options = {
+			html = {
+				options = {
+					-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+					["bem.enabled"] = true,
+				},
+			},
+		},
+	}
 end
 
 local cmp = require("cmp")
