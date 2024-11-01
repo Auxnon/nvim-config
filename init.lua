@@ -34,7 +34,9 @@ vim.o.statuscolumn = "%!v:lua.require('statcol').statcol()"
 -- vim.opt.number=true
 -- vim.opt.relativenumber=true
 -- vim.opt.signcolumn="number"
-
+-- TODO
+-- WARN
+-- TEST
 vim.g.surround_no_mappings = true
 
 if LocalVim then
@@ -117,11 +119,12 @@ require "lazy".setup({
 				["q"] = "actions.close",
 				--  ["g?"] = "actions.show_help",
 				["<CR>"] = "actions.select",
-				["<C-s>"] = {
-					"actions.select",
-					opts = { vertical = true },
-					desc = "Open the entry in a vertical split",
-				},
+				-- ["<C-s>"] = {
+				-- 	"actions.select",
+				-- 	opts = { vertical = true },
+				-- 	desc = "Open the entry in a vertical split",
+				-- },
+				["<C-s>"] = function() require'oil'.save{confirm=false}end,
 				["<C-h>"] = {
 					"actions.select",
 					opts = { horizontal = true },
@@ -178,6 +181,24 @@ require "lazy".setup({
 		opts = {},
 	},
 	"lewis6991/gitsigns.nvim",
+	{
+		"stevearc/aerial.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+	},
 	"catgoose/telescope-helpgrep.nvim",
 })
 

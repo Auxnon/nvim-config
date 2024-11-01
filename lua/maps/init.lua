@@ -2,7 +2,8 @@ vim.g.mapleader = " "
 local flipm = require("flip")
 local k = vim.keymap
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>pv", "<Cmd>Oil --float .<CR>")
+-- vim.keymap.set("n", "<leader>pv", "<Cmd>Oil --float .<CR>")
+vim.keymap.set("n", "<leader>pv", function() require('oil').open()end)
 
 local opts = nil
 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
