@@ -126,7 +126,13 @@ vim.keymap.set("n", "<leader>k", function()
 	-- vim.fn.sign_place(0, "", "s1", vim.api.nvim_get_current_buf(), { lnum = current_row })
 end)
 
-k.set("n", "<C-F>", flipm.flip_it)
+
+-- true
+k.set("n", "<C-c>", flipm.flip_it, {desc="Flip value/symbol to \"opposite\""})
+k.set("n", "<C-Up>", "<C-w><Up>")
+k.set("n", "<C-Down>", "<C-w><Down>")
+k.set("n", "<C-Left>", "<C-w><Left>")
+k.set("n", "<C-Right>", "<C-w><Right>")
 
 -- k.set("n", "<leader>wv", function() vim.cmd.split({ mods = { vertical = true } }) end)
 -- k.set("n", "<leader>wh", function() vim.cmd.split({ mods = { horizontal = true } }) end)
