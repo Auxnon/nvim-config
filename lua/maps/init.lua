@@ -3,7 +3,7 @@ local flipm = require("flip")
 local k = vim.keymap
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 -- vim.keymap.set("n", "<leader>pv", "<Cmd>Oil --float .<CR>")
-vim.keymap.set("n", "<leader>pv", function() require('oil').open()end)
+vim.keymap.set("n", "<leader>pv", function() require("oil").open() end)
 
 local opts = nil
 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -54,60 +54,6 @@ k.set("x", "S", "<Plug>VSurround")
 k.set("x", "gS", "<Plug>VgSurround")
 vim.fn.sign_define("s1", { text = "󰎤", texthl = "Type", linehl = "Search" })
 
-local thingGroup = vim.api.nvim_create_augroup("Thing", {})
-function ShowMenu(o, cb)
-	-- local popup = require("plenary.popup")
-	local height = 20
-	local width = 30
-	-- local borderchars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
-
-	-- Win_id = popup.create(optsi, {
-	-- 	title = "MyProjects",
-	-- 	highlight = "MyProjectWindow",
-	-- 	line = math.floor(((vim.o.lines - height) / 2) - 1),
-	-- 	col = math.floor((vim.o.columns - width) / 2),
-	-- 	minwidth = width,
-	-- 	minheight = height,
-	-- 	borderchars = borderchars,
-	-- 	callback = cb,
-	-- })
-
-	local bufnr = vim.api.nvim_create_buf(false, true)
-	local win_id = vim.api.nvim_open_win(bufnr, true, {
-		relative = "editor",
-		title = o.title or "Test",
-		title_pos = o.title_pos or "left",
-		row = math.floor(((vim.o.lines - height) / 2) - 1),
-		col = math.floor((vim.o.columns - width) / 2),
-		width = width,
-		height = height,
-		style = "minimal",
-		border = o.border or "rounded",
-	})
-
-	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, o)
-
-	local closer = function()
-		vim.api.nvim_win_close(win_id, true)
-		vim.api.nvim_clear_autocmds({ group = "Thing" })
-	end
-
-	vim.api.nvim_create_autocmd({ "BufLeave" }, {
-		group = thingGroup,
-		buffer = bufnr,
-		callback = closer,
-	})
-
-	-- ???
-	vim.api.nvim_set_option_value("number", true, {
-		win = win_id,
-	})
-
-	-- local bufnr = vim.api.nvim_win_get_buf(Win_id)
-	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "<cmd>lua CloseMenu()<CR>", { silent=false })
-	k.set("n", "q", closer, { buffer = bufnr, silent = false })
-end
-
 vim.keymap.set("n", "<leader>k", function()
 	local roo = vim.lsp.buf.list_workspace_folders()
 
@@ -126,9 +72,8 @@ vim.keymap.set("n", "<leader>k", function()
 	-- vim.fn.sign_place(0, "", "s1", vim.api.nvim_get_current_buf(), { lnum = current_row })
 end)
 
-
 -- true
-k.set("n", "<C-c>", flipm.flip_it, {desc="Flip value/symbol to \"opposite\""})
+k.set("n", "<C-c>", flipm.flip_it, { desc = 'Flip value/symbol to "opposite"' })
 k.set("n", "<C-Up>", "<C-w><Up>")
 k.set("n", "<C-Down>", "<C-w><Down>")
 k.set("n", "<C-Left>", "<C-w><Left>")

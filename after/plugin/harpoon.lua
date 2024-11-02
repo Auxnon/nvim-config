@@ -1,17 +1,128 @@
+-- require("telescope").load_extension('harpoon')
 local harpoon = require "harpoon"
+local k = vim.keymap
+local util = require "utils"
 
-vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-e>",function() harpoon.ui:toggle_quick_menu(harpoon:list()) end )
-vim.keymap.set("n", "<leader>A",function() harpoon:list():clear() end )
+harpoon:setup({})
 
+-- basic telescope configuration
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+	local file_paths = {}
+	for _, item in ipairs(harpoon_files.items) do
+		table.insert(file_paths, item.value)
+	end
 
+	require("telescope.pickers")
+		.new({}, {
+			prompt_title = "Harpoon",
+			finder = require("telescope.finders").new_table({
+				results = file_paths,
+			}),
+			previewer = conf.file_previewer({}),
+			sorter = conf.generic_sorter({}),
+		})
+		:find()
+end
 
-vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
+local function refresh_buffer(bufnr)
+	local l = harpoon:list()
+	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, l:display())
+end
 
+local function move_down(bufnr)
+	local l = harpoon:list()
+	local ln = vim.fn.getpos(".")[2]
+	if ln < l:length() then
+		local c = l:get(ln)
+		local n = l:get(ln + 1)
+		l:replace_at(ln + 1, c)
+		l:replace_at(ln, n)
+		refresh_buffer(bufnr)
+	end
+end
 
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+local function move_up(bufnr)
+	local l = harpoon:list()
+	local ln = vim.fn.getpos(".")[2]
+	if ln > 1 then
+		local c = l:get(ln)
+		local n = l:get(ln - 1)
+		l:replace_at(ln - 1, c)
+		l:replace_at(ln, n)
+		refresh_buffer(bufnr)
+	end
+end
 
+local mark_var = nil
+local function move_to(bufnr, ln)
+	local l = harpoon:list()
+	if mark_var ~= nil then
+		local c = l:get(ln)
+		local n = l:get(mark_var)
+		l:replace_at(mark_var, c)
+		l:replace_at(ln, n)
+		refresh_buffer(bufnr)
+		vim.fn.sign_unplace "Harpoon"
+		mark_var = nil
+	else
+		l:select(ln)
+	end
+end
+
+local function select(bufnr)
+	local ln = vim.fn.getpos(".")[2]
+	if mark_var ~= nil then
+		move_to(bufnr, ln)
+	else
+		local l = harpoon:list()
+		l:select(ln)
+	end
+end
+
+vim.fn.sign_define("mark1", { text = "󰛂", texthl = "Type", linehl = "Search" })
+local function mark(bufnr)
+	if mark_var then
+		vim.fn.sign_unplace "Harpoon"
+		mark_var = nil
+	else
+		local ln = vim.fn.getpos(".")[2]
+		vim.fn.sign_place(0, "Harpoon", "s1", bufnr, { lnum = ln })
+		mark_var = ln
+	end
+end
+
+k.set("n", "<C-h>", function()
+	local bufnr = util.menu(harpoon:list():display())
+	-- toggle_telescope(harpoon:list())
+	local o = { buffer = bufnr, silent = false }
+	vim.keymap.set("n", "d", function() move_down(bufnr) end, o)
+	vim.keymap.set("n", "u", function() move_up(bufnr) end, o)
+	vim.keymap.set("n", "m", function() mark(bufnr) end, o)
+	for i = 1, 9 do
+		vim.keymap.set("n", "" .. i, function() move_to(bufnr, i) end, o)
+	end
+	-- vim.keymap.set("n", "<C-1>", function() move_to(bufnr, 1) end, o)
+	vim.keymap.set("n", "<CR>", function() select(bufnr) end, o)
+end, { desc = "Open harpoon window" })
+
+k.set("n", "<C-S-1>", function() uitl.menu("hello") end)
+
+k.set("n", "<leader>a", function()
+	local l = harpoon:list()
+	l:add()
+	vim.print("" .. l:length())
+end)
+k.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+-- k.set("n", "<C-e>",":Telescope harpoon marks<CR>")
+k.set("n", "<leader>A", function() harpoon:list():clear() end)
+
+k.set("n", "m1", function() harpoon:list():replace_at(1) end)
+k.set("n", "m2", function() harpoon:list():replace_at(2) end)
+k.set("n", "<leader>1", function() harpoon:list():select(1) end)
+k.set("n", "<leader>2", function() harpoon:list():select(2) end)
+k.set("n", "<leader>3", function() harpoon:list():select(3) end)
+k.set("n", "<leader>4", function() harpoon:list():select(4) end)
+
+k.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+k.set("n", "<C-S-N>", function() harpoon:list():next() end)

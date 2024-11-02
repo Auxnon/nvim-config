@@ -33,6 +33,8 @@
 ---@class Api
 ---@field nvim_buf_add_highlight fun(buffer:integer ,ns_id:integer,hl_group:string,line:integer,col_start:integer,col_end:integer)
 ---@field nvim_create_autocmd fun(event:string|string[],opts:AutocmdOpts)
+---@field nvim_create_buf fun(listed:boolean,scratch:boolean) Creates a new, empty, unnamed buffer.
+---@field nvim_del_current_line fun() Deletes the current line.
 
 ---@class AutocmdOpts
 ---@field group? string|integer autocommand group name or id to match against.
@@ -83,6 +85,8 @@
 ---@class VimFn
 ---@field stdpath fun(path:string)
 ---@field system fun(args: string[])
+---@field getpos fun(expr:string):integer[] The result is a |List| with four numbers: [bufnum, lnum, col, off]
+
 ---
 ---@class VimLoop
 ---@field fs_stat fun(path: string):boolean
