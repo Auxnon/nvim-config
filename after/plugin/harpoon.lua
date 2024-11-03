@@ -1,9 +1,11 @@
 -- require("telescope").load_extension('harpoon')
+---@type Harpoon
 local harpoon = require "harpoon"
 local k = vim.keymap
 local util = require "utils"
 
 harpoon:setup({})
+local harpy=vim.api.nvim_create_namespace"Harpy"
 
 -- basic telescope configuration
 local conf = require("telescope.config").values
@@ -32,20 +34,20 @@ local function refresh_buffer(bufnr)
 	for i = 1, #a do
 		local v = a[i]
 		local b = v:match(".*()/")
-		if b ~= nil then
-			local c = v:sub(b + 1)
-			table.insert(new, c)
-		else
-			table.insert(new, v)
-		end
+		if b ~= nil then v = v:sub(b + 1) end
+		local item = l:get(i)
+        local ind=#v
+		if item ~= nil then v = v .. " " .. item.context.row .. "," .. item.context.col end
+	    vim.api.nvim_buf_set_lines(bufnr, i-1, -1, false, { v })
+        vim.api.nvim_buf_set_extmark(bufnr,harpy,i-1,0,{end_col=ind,hl_group="@keyword.operator"})
+        vim.api.nvim_buf_set_extmark(bufnr,harpy,i-1,ind,{end_col=#v,hl_group="@comment"})
 	end
-	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new)
 end
 
 local function move_down(bufnr)
 	local l = harpoon:list()
 	local ln = vim.fn.getpos(".")[2]
-	if ln < l:length() then
+	if ln < l:length() then 
 		local c = l:get(ln)
 		local n = l:get(ln + 1)
 		l:replace_at(ln + 1, c)
@@ -92,14 +94,14 @@ local function select(bufnr)
 	end
 end
 
-vim.fn.sign_define("mark1", { text = "󰛂 ", texthl = "Type", linehl = "Search" })
+vim.fn.sign_define("mark1", { text = "⇁", texthl = "Type", linehl = "Search" })
 local function mark(bufnr)
 	if mark_var then
 		vim.fn.sign_unplace "Harpoon"
 		mark_var = nil
 	else
 		local ln = vim.fn.getpos(".")[2]
-		vim.fn.sign_place(0, "Harpoon", "s1", bufnr, { lnum = ln })
+		vim.fn.sign_place(0, "Harpoon", "mark1", bufnr, { lnum = ln })
 		mark_var = ln
 	end
 end
