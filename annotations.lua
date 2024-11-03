@@ -35,6 +35,8 @@
 ---@field nvim_create_autocmd fun(event:string|string[],opts:AutocmdOpts)
 ---@field nvim_create_buf fun(listed:boolean,scratch:boolean) Creates a new, empty, unnamed buffer.
 ---@field nvim_del_current_line fun() Deletes the current line.
+---@field nvim_buf_set_lines fun(buffer:integer, start:integer, end:integer, strict_indexing:boolean, replacement:string[]) Sets (replaces) a line-range in the buffer.
+
 
 ---@class AutocmdOpts
 ---@field group? string|integer autocommand group name or id to match against.

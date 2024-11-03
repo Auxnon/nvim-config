@@ -27,7 +27,19 @@ end
 
 local function refresh_buffer(bufnr)
 	local l = harpoon:list()
-	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, l:display())
+	local a = l:display()
+	local new = {}
+	for i = 1, #a do
+		local v = a[i]
+		local b = v:match(".*()/")
+		if b ~= nil then
+			local c = v:sub(b + 1)
+			table.insert(new, c)
+		else
+			table.insert(new, v)
+		end
+	end
+	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new)
 end
 
 local function move_down(bufnr)
@@ -80,7 +92,7 @@ local function select(bufnr)
 	end
 end
 
-vim.fn.sign_define("mark1", { text = "󰛂", texthl = "Type", linehl = "Search" })
+vim.fn.sign_define("mark1", { text = "󰛂 ", texthl = "Type", linehl = "Search" })
 local function mark(bufnr)
 	if mark_var then
 		vim.fn.sign_unplace "Harpoon"
@@ -93,7 +105,10 @@ local function mark(bufnr)
 end
 
 k.set("n", "<C-h>", function()
-	local bufnr = util.menu(harpoon:list():display())
+	-- harpoon:list():display()
+	local bufnr = util.menu { { "" }, width = 40, height = 30 }
+	vim.cmd("set nonu")
+	refresh_buffer(bufnr)
 	-- toggle_telescope(harpoon:list())
 	local o = { buffer = bufnr, silent = false }
 	vim.keymap.set("n", "d", function() move_down(bufnr) end, o)

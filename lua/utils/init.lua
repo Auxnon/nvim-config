@@ -2,8 +2,8 @@ local thingGroup = vim.api.nvim_create_augroup("Thing", {})
 local m={}
 function m.menu(o, cb)
 	-- local popup = require("plenary.popup")
-	local height = 20
-	local width = 30
+	local height = o.width or 20
+	local width = o.height or 30
 	-- local borderchars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 	-- Win_id = popup.create(optsi, {
@@ -30,7 +30,7 @@ function m.menu(o, cb)
 		border = o.border or "rounded",
 	})
 
-	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, o)
+	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, o[1])
 
 	local closer = function()
 		vim.api.nvim_win_close(win_id, true)
