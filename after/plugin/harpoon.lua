@@ -84,6 +84,13 @@ local function move_to(bufnr, ln)
 	end
 end
 
+local function delete(bufnr)
+	local l = harpoon:list()
+	local ln = vim.fn.getpos(".")[2]
+    l:remove_at(ln)
+	refresh_buffer(bufnr)
+end
+
 local function select(bufnr)
 	local ln = vim.fn.getpos(".")[2]
 	if mark_var ~= nil then
@@ -115,6 +122,7 @@ k.set("n", "<C-h>", function()
 	local o = { buffer = bufnr, silent = false }
 	vim.keymap.set("n", "d", function() move_down(bufnr) end, o)
 	vim.keymap.set("n", "u", function() move_up(bufnr) end, o)
+	vim.keymap.set("n", "x", function() delete(bufnr) end, o)
 	vim.keymap.set("n", "m", function() mark(bufnr) end, o)
 	for i = 1, 9 do
 		vim.keymap.set("n", "" .. i, function() move_to(bufnr, i) end, o)

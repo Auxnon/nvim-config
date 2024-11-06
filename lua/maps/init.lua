@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 local flipm = require("flip")
+local utils = require("utils")
 local k = vim.keymap
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 -- vim.keymap.set("n", "<leader>pv", "<Cmd>Oil --float .<CR>")
@@ -65,7 +66,7 @@ vim.keymap.set("n", "<leader>k", function()
 	-- let win = nvim_open_win(buf, 0, opts)
 	-- " optional: change highlight, otherwise Pmenu is used
 	-- call nvim_set_option_value('winhl', 'Normal:MyHighlight', {'win': win})
-	ShowMenu(roo)
+	utils.menu(roo)
 
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "<cmd>lua CloseMenu()<CR>", { silent = false })
 
