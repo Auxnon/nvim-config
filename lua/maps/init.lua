@@ -79,6 +79,7 @@ k.set("n", "<C-Up>", "<C-w><Up>")
 k.set("n", "<C-Down>", "<C-w><Down>")
 k.set("n", "<C-Left>", "<C-w><Left>")
 k.set("n", "<C-Right>", "<C-w><Right>")
+k.set("v", "<C-y>", "\"+y")
 
 -- Session --------------
 k.set("n", "<C-s>", "<Cmd>:w<CR>", { desc = "Save" })
