@@ -70,6 +70,7 @@ require "lazy".setup({
 	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "jokajak/keyseer.nvim", version = false },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	"nvim-treesitter/nvim-treesitter-textobjects",
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
@@ -94,7 +95,26 @@ require "lazy".setup({
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
 		end,
-		opts = {},
+		---@class wk.Opts
+		opts = {
+			preset = "modern",
+			spec = {
+				{ "<leader>d", group = "Del" },
+				{ "<leader>s", group = "Swap" },
+				{ "<leader>g", group = "Go" },
+				{ "<leader>h", group = "Hunk" },
+				{ "<leader>l", group = "LSP" },
+			},
+			icons = {
+				rules = {
+					{ pattern = "go", icon = " ", color = "purple" },
+					{ pattern = "swap", icon = " ", color = "green" },
+					{ pattern = "hunk", icon = " ", color = "azure" },
+					{ pattern = "lsp", icon = " ", color = "yellow" },
+					{ pattern = "del", icon = " ", color = "orange" },
+				},
+			},
+		},
 	},
 	{
 		"numToStr/Comment.nvim",
@@ -177,10 +197,14 @@ require "lazy".setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-	{ "akinsho/toggleterm.nvim", version = "*", opts = {
-		open_mapping = [[<c-t>]],
-		shell = "fish",
-	} },
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		opts = {
+			-- open_mapping = [[<c-t>]],
+			shell = "fish",
+		},
+	},
 	{
 		"chentoast/marks.nvim",
 		event = "VeryLazy",

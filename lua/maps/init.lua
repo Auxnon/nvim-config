@@ -7,10 +7,10 @@ local k = vim.keymap
 vim.keymap.set("n", "<leader>pv", function() require("oil").open() end)
 
 local opts = nil
-vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, { desc = "Go to def" })
 -- vim.keymap.set("n", "K", function() vim.lsp.inlay_hint.enable(true) end, opts)
 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end, { desc = "lsp replace all of word" })
+vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end, { desc = "LSP replace" })
 vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
 vim.keymap.set("n", "<leader>l[", vim.diagnostic.goto_next)
@@ -28,7 +28,6 @@ end)
 k.set("n", "<leader>lr", function() vim.lsp.buf.rename() end, { desc = "lsp replace word" })
 k.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { desc = "Overview" })
 -- k.set("n", "<leader>h", "yiw<Cmd>:h <C-R>0<CR>", { desc = "Overview" })
-k.set("n", "<C-s>", "<Cmd>:w<CR>")
 k.set("n", "Y", function()
 	local count = math.max(vim.v.count, 1)
 	local current_row = vim.api.nvim_win_get_cursor(vim.api.nvim_get_current_win())[1]
@@ -80,6 +79,11 @@ k.set("n", "<C-Up>", "<C-w><Up>")
 k.set("n", "<C-Down>", "<C-w><Down>")
 k.set("n", "<C-Left>", "<C-w><Left>")
 k.set("n", "<C-Right>", "<C-w><Right>")
+
+-- Session --------------
+k.set("n", "<C-s>", "<Cmd>:w<CR>", { desc = "Save" })
+k.set("n", "<leader>q", "<Cmd>:q<CR>", { desc = "Quit" })
+-------------------------
 
 -- k.set("n", "<leader>wv", function() vim.cmd.split({ mods = { vertical = true } }) end)
 -- k.set("n", "<leader>wh", function() vim.cmd.split({ mods = { horizontal = true } }) end)
