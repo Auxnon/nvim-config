@@ -1,6 +1,6 @@
 require "nvim-treesitter.configs".setup {
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
-	ensure_installed = { "c", "lua", "vim", "luadoc", "query", "rust", "javascript", "typescript", "svelte" },
+	ensure_installed = { "c", "lua", "vim", "luadoc", "query", "javascript", "rust", "typescript", "svelte" },
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
@@ -35,6 +35,8 @@ require "nvim-treesitter.configs".setup {
 				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
 				-- You can also use captures from other query groups like `locals.scm`
 				["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+				["ia"] = { query = "@parameter.inner", desc = "Select parameter" },
+				["aa"] = { query = "@parameter.outer", desc = "Select parameter" },
 			},
 			-- You can choose the select mode (default is charwise 'v')
 			--
@@ -64,7 +66,8 @@ require "nvim-treesitter.configs".setup {
 			set_jumps = true, -- whether to set jumps in the jumplist
 			goto_next_start = {
 				["]m"] = "@function.outer",
-				["]]"] = { query = "@class.outer", desc = "Next class start" },
+				["]f"] = "@function.outer",
+				["]c"] = { query = "@class.outer", desc = "Next class start" },
 				--
 				-- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
 				["]o"] = "@loop.*",
@@ -77,15 +80,18 @@ require "nvim-treesitter.configs".setup {
 			},
 			goto_next_end = {
 				["]M"] = "@function.outer",
-				["]["] = "@class.outer",
+				["]F"] = "@function.outer",
+				["]C"] = "@class.outer",
 			},
 			goto_previous_start = {
 				["[m"] = "@function.outer",
-				["[["] = "@class.outer",
+				["[f"] = "@function.outer",
+				["[c"] = "@class.outer",
 			},
 			goto_previous_end = {
 				["[M"] = "@function.outer",
-				["[]"] = "@class.outer",
+				["[F"] = "@function.outer",
+				["[C"] = "@class.outer",
 			},
 			-- Below will go to either the start or the end, whichever is closer.
 			-- Use if you want more granular movements
@@ -95,6 +101,15 @@ require "nvim-treesitter.configs".setup {
 			},
 			goto_previous = {
 				["[d"] = "@conditional.outer",
+			},
+		},
+		swap = {
+			enable = true,
+			swap_next = {
+				["<leader>sa"] = "@parameter.inner",
+			},
+			swap_previous = {
+				["<leader>sA"] = "@parameter.inner",
 			},
 		},
 	},
