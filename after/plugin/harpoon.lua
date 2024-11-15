@@ -115,7 +115,7 @@ end
 
 k.set("n", "<C-h>", function()
 	-- harpoon:list():display()
-	local bufnr = util.menu { { "" }, width = 40, height = 30 }
+	local bufnr = util.menu { { "" }, width = 40, height = 30 , title=">>=====>>" ,title_pos="center"}
 	vim.cmd("set nonu")
 	refresh_buffer(bufnr)
 	-- toggle_telescope(harpoon:list())

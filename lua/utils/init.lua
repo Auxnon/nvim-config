@@ -20,7 +20,7 @@ function m.menu(o, cb)
 	local bufnr = vim.api.nvim_create_buf(false, true)
 	local win_id = vim.api.nvim_open_win(bufnr, true, {
 		relative = "editor",
-		title = o.title or "Test",
+		title = o.title or "Menu",
 		title_pos = o.title_pos or "left",
 		row = math.floor(((vim.o.lines - height) / 2) - 1),
 		col = math.floor((vim.o.columns - width) / 2),
