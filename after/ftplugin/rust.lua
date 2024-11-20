@@ -1,3 +1,5 @@
+vim.keymap.set("n","<C-f>","<CMD>:RustFmt<CR>",{desc="Rust format"})
+
 local bufnr = vim.api.nvim_get_current_buf()
 vim.keymap.set(
   "n", 
