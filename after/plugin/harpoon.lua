@@ -2,10 +2,11 @@
 ---@type Harpoon
 local harpoon = require "harpoon"
 local k = vim.keymap
+local wk = require "which-key"
 local util = require "utils"
 
 harpoon:setup({})
-local harpy=vim.api.nvim_create_namespace"Harpy"
+local harpy = vim.api.nvim_create_namespace "Harpy"
 
 -- basic telescope configuration
 local conf = require("telescope.config").values
@@ -36,18 +37,18 @@ local function refresh_buffer(bufnr)
 		local b = v:match(".*()/")
 		if b ~= nil then v = v:sub(b + 1) end
 		local item = l:get(i)
-        local ind=#v
+		local ind = #v
 		if item ~= nil then v = v .. " " .. item.context.row .. "," .. item.context.col end
-	    vim.api.nvim_buf_set_lines(bufnr, i-1, -1, false, { v })
-        vim.api.nvim_buf_set_extmark(bufnr,harpy,i-1,0,{end_col=ind,hl_group="@keyword.operator"})
-        vim.api.nvim_buf_set_extmark(bufnr,harpy,i-1,ind,{end_col=#v,hl_group="@comment"})
+		vim.api.nvim_buf_set_lines(bufnr, i - 1, -1, false, { v })
+		vim.api.nvim_buf_set_extmark(bufnr, harpy, i - 1, 0, { end_col = ind, hl_group = "@keyword.operator" })
+		vim.api.nvim_buf_set_extmark(bufnr, harpy, i - 1, ind, { end_col = #v, hl_group = "@comment" })
 	end
 end
 
 local function move_down(bufnr)
 	local l = harpoon:list()
 	local ln = vim.fn.getpos(".")[2]
-	if ln < l:length() then 
+	if ln < l:length() then
 		local c = l:get(ln)
 		local n = l:get(ln + 1)
 		l:replace_at(ln + 1, c)
@@ -87,7 +88,7 @@ end
 local function delete(bufnr)
 	local l = harpoon:list()
 	local ln = vim.fn.getpos(".")[2]
-    l:remove_at(ln)
+	l:remove_at(ln)
 	refresh_buffer(bufnr)
 end
 
@@ -115,7 +116,7 @@ end
 
 k.set("n", "<C-h>", function()
 	-- harpoon:list():display()
-	local bufnr = util.menu { { "" }, width = 40, height = 30 , title=">>=====>>" ,title_pos="center"}
+	local bufnr = util.menu { { "" }, width = 40, height = 30, title = ">>=====>>", title_pos = "center" }
 	vim.cmd("set nonu")
 	refresh_buffer(bufnr)
 	-- toggle_telescope(harpoon:list())
@@ -140,14 +141,16 @@ k.set("n", "<leader>a", function()
 end)
 k.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 -- k.set("n", "<C-e>",":Telescope harpoon marks<CR>")
-k.set("n", "<leader>dh", function() harpoon:list():clear() end, {desc="Del harpoon"})
+k.set("n", "<leader>dh", function() harpoon:list():clear() end, { desc = "Del harpoon" })
 
 k.set("n", "m1", function() harpoon:list():replace_at(1) end)
 k.set("n", "m2", function() harpoon:list():replace_at(2) end)
-k.set("n", "<leader>1", function() harpoon:list():select(1) end)
-k.set("n", "<leader>2", function() harpoon:list():select(2) end)
-k.set("n", "<leader>3", function() harpoon:list():select(3) end)
-k.set("n", "<leader>4", function() harpoon:list():select(4) end)
+wk.add {
+	{ "<leader>1", function() harpoon:list():select(1) end, hidden = true },
+	{ "<leader>2", function() harpoon:list():select(2) end, hidden = true },
+	{ "<leader>3", function() harpoon:list():select(3) end, hidden = true },
+	{ "<leader>4", function() harpoon:list():select(4) end, hidden = true },
+}
 
 -- k.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 -- k.set("n", "<C-S-N>", function() harpoon:list():next() end)
