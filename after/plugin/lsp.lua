@@ -11,8 +11,8 @@ local lspconfig = require("lspconfig")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
+	dynamicRegistration = false,
+	lineFoldingOnly = true,
 }
 
 -- to learn how to use mason.nvim
@@ -23,12 +23,14 @@ require("mason-lspconfig").setup({
 	-- 'rust_analyzer',
 	--  },
 	handlers = {
-		function(server_name) lspconfig[server_name].setup({
-		capabilities = capabilities,
-        }) end,
+		function(server_name)
+			lspconfig[server_name].setup({
+				capabilities = capabilities,
+			})
+		end,
 	},
 })
-require('ufo').setup()
+require("ufo").setup()
 
 if lspconfig.lua_ls then
 	lspconfig.lua_ls.setup({
@@ -42,8 +44,8 @@ if lspconfig.lua_ls then
 	})
 end
 
-if lspconfig.emmet_ls then
-	lspconfig.emmet_ls.setup {
+if lspconfig.emmet_language_server then
+	lspconfig.emmet_language_server.setup {
 		-- on_attach = on_attach,
 		capabilities = capabilities,
 		filetypes = {
