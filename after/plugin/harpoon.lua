@@ -145,12 +145,11 @@ k.set("n", "<leader>dh", function() harpoon:list():clear() end, { desc = "Del ha
 
 k.set("n", "m1", function() harpoon:list():replace_at(1) end)
 k.set("n", "m2", function() harpoon:list():replace_at(2) end)
-wk.add {
-	{ "<leader>1", function() harpoon:list():select(1) end, hidden = true },
-	{ "<leader>2", function() harpoon:list():select(2) end, hidden = true },
-	{ "<leader>3", function() harpoon:list():select(3) end, hidden = true },
-	{ "<leader>4", function() harpoon:list():select(4) end, hidden = true },
-}
+
+-- <leader>1 through 9 and 0
+for i = 0, 9, 1 do
+	wk.add{{ "<leader>"..i, function() harpoon:list():select(i) end, hidden = true }}
+end
 
 -- k.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 -- k.set("n", "<C-S-N>", function() harpoon:list():next() end)
