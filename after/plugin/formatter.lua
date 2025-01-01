@@ -60,10 +60,22 @@ require("formatter").setup({
 				}
 			end,
 		},
+		javascript = {
+			format_prettier,
+		},
 		typescript = {
 			format_prettier,
 		},
 		html = {
+			format_prettier,
+		},
+		css = {
+			format_prettier,
+		},
+		scss = {
+			format_prettier,
+		},
+		sass = {
 			format_prettier,
 		},
 
