@@ -67,6 +67,7 @@ require "nvim-treesitter.configs".setup {
 			goto_next_start = {
 				["]m"] = "@function.outer",
 				["]f"] = "@function.outer",
+				["]a"] = "@parameter.outer",
 				["]c"] = { query = "@class.outer", desc = "Next class start" },
 				--
 				-- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
@@ -81,27 +82,30 @@ require "nvim-treesitter.configs".setup {
 			goto_next_end = {
 				["]M"] = "@function.outer",
 				["]F"] = "@function.outer",
+				["]A"] = "@parameter.outer",
 				["]C"] = "@class.outer",
 			},
 			goto_previous_start = {
 				["[m"] = "@function.outer",
 				["[f"] = "@function.outer",
+				["[a"] = "@parameter.outer",
 				["[c"] = "@class.outer",
 			},
 			goto_previous_end = {
 				["[M"] = "@function.outer",
 				["[F"] = "@function.outer",
+				["[A"] = "@parameter.outer",
 				["[C"] = "@class.outer",
 			},
 			-- Below will go to either the start or the end, whichever is closer.
 			-- Use if you want more granular movements
 			-- Make it even more gradual by adding multiple queries and regex.
-			goto_next = {
-				["]d"] = "@conditional.outer",
-			},
-			goto_previous = {
-				["[d"] = "@conditional.outer",
-			},
+			-- goto_next = {
+			-- 	["]d"] = "@conditional.outer",
+			-- },
+			-- goto_previous = {
+			-- 	["[d"] = "@conditional.outer",
+			-- },
 		},
 		swap = {
 			enable = true,
