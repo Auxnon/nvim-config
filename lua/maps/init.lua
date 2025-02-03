@@ -15,7 +15,7 @@ vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end
 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
 vim.keymap.set("n", "<leader>l[", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>l]", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "<C-e>", function() vim.diagnostic.goto_next { vim.diagnostic.severity.ERROR } end)
+vim.keymap.set("n", "<C-e>", function() vim.diagnostic.goto_next { severity=vim.diagnostic.severity.ERROR } end)
 vim.keymap.set("n", "<C-f>", vim.cmd.Format)
 vim.keymap.set("v", "<C-f>", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>sr", ":%s/<C-r>0//g<Left><Left>", { desc = "Replace all instances of clipboard in text" })
