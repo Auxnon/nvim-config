@@ -11,6 +11,14 @@ function format_prettier()
 	}
 end
 
+function mix()
+	return {
+		exe = "mix",
+		args = { "format", "-" },
+		stdin = true,
+	}
+end
+
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup({
 	-- Enable or disable logging
@@ -66,17 +74,26 @@ require("formatter").setup({
 		typescript = {
 			format_prettier,
 		},
-		html = {
+		javascriptreact = {
 			format_prettier,
 		},
-		css = {
+		typescriptreact = {
+			format_prettier,
+		},
+		html = {
 			format_prettier,
 		},
 		scss = {
 			format_prettier,
 		},
-		sass = {
-			format_prettier,
+		elixir = {
+			mix,
+		},
+		heex = {
+			mix,
+		},
+		eex = {
+			mix,
 		},
 
 		-- Use the special "*" filetype for defining formatter configurations on
