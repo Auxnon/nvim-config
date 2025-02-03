@@ -83,7 +83,13 @@ require("formatter").setup({
 		html = {
 			format_prettier,
 		},
+		css = {
+			format_prettier,
+		},
 		scss = {
+			format_prettier,
+		},
+		sass = {
 			format_prettier,
 		},
 		elixir = {
