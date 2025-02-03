@@ -51,6 +51,7 @@ function m.menu(o, cb)
 	-- local bufnr = vim.api.nvim_win_get_buf(Win_id)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "<cmd>lua CloseMenu()<CR>", { silent=false })
 	vim.keymap.set("n", "q", closer, { buffer = bufnr, silent = false })
+	vim.keymap.set("n", "<Esc>", closer, { buffer = bufnr, silent = false })
     return bufnr
 end
 
