@@ -36,6 +36,12 @@ if lspconfig.lua_ls then
 	lspconfig.lua_ls.setup({
 		settings = {
 			Lua = {
+				-- workspace={
+				--     library={
+				--         [vim.fn.expand'$VIMRUNTIME/lua']=true,
+				--         ['~/nvimout']=true,
+				--     }
+				-- },
 				diagnostics = {
 					globals = { "vim" },
 				},
@@ -62,6 +68,18 @@ if lspconfig.emmet_language_server then
 			"typescriptreact",
 			"vue",
 		},
+	}
+end
+
+--- we must manually point our lexical lsp to it's install that we built to _build and moved to ~/bin/lexical-lsp 
+--- https://github.com/lexical-lsp/lexical/blob/main/pages/installation.md#neovim
+if lspconfig.lexical then
+	lspconfig.lexical.setup {
+		cmd = { vim.env.HOME.."/bin/lexical-lsp/package/lexical/bin/start_lexical.sh" },
+		root_dir = function(fname) return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd() end,
+		filetypes = { "elixir", "eelixir", "heex" },
+		-- optional settings
+		settings = {},
 	}
 end
 
@@ -97,6 +115,7 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 	sources = cmp.config.sources({
+		{ name = "copilot", group_index = 2 },
 		{ name = "nvim_lsp" },
 		-- { name = 'vsnip' }, -- For vsnip users.
 		{ name = "luasnip" }, -- For luasnip users.
