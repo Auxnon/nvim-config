@@ -101,6 +101,9 @@ require("formatter").setup({
 		eex = {
 			mix,
 		},
+		json = {
+			format_prettier,
+		},
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
