@@ -132,13 +132,13 @@ k.set("n", "<C-h>", function()
 	vim.keymap.set("n", "<CR>", function() select(bufnr) end, o)
 end, { desc = "Open harpoon window" })
 
-k.set("n", "<C-S-1>", function() uitl.menu("hello") end)
+-- k.set("n", "<C-S-1>", function() uitl.menu("hello") end)
 
 k.set("n", "<leader>a", function()
 	local l = harpoon:list()
 	l:add()
 	vim.print("" .. l:length())
-end)
+end, { desc = "Harpoon" })
 k.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 -- k.set("n", "<C-e>",":Telescope harpoon marks<CR>")
 k.set("n", "<leader>dh", function() harpoon:list():clear() end, { desc = "Del harpoon" })
@@ -148,7 +148,7 @@ k.set("n", "m2", function() harpoon:list():replace_at(2) end)
 
 -- <leader>1 through 9 and 0
 for i = 0, 9, 1 do
-	wk.add{{ "<leader>"..i, function() harpoon:list():select(i) end, hidden = true }}
+	wk.add { { "<leader>" .. i, function() harpoon:list():select(i) end, hidden = true } }
 end
 
 -- k.set("n", "<C-S-P>", function() harpoon:list():prev() end)

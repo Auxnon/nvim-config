@@ -30,6 +30,7 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.statuscolumn = "%!v:lua.require('statcol').statcol()"
+
 -- vim.opt.number=true
 -- vim.opt.relativenumber=true
 -- vim.opt.signcolumn="number"
@@ -86,6 +87,7 @@ require "lazy".setup({
 	"neovim/nvim-lspconfig",
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/nvim-cmp",
+	-- { "zbirenbaum/copilot.lua", event = "VeryLazy" },
 	"L3MON4D3/LuaSnip",
 	"MunifTanjim/prettier.nvim",
 	{
@@ -104,14 +106,26 @@ require "lazy".setup({
 				{ "<leader>g", group = "Go" },
 				{ "<leader>h", group = "Hunk" },
 				{ "<leader>l", group = "LSP" },
+				{ "<leader>o", group = "Over" },
+				{ "<leader>c", group = "AI" },
+				{ "<leader>p", group = "pFile" },
+				{ "<leader>t", group = "Toggle" },
+				{ "<leader>x", group = "Trouble" },
 			},
 			icons = {
 				rules = {
 					{ pattern = "go", icon = " ", color = "purple" },
 					{ pattern = "swap", icon = " ", color = "green" },
-					{ pattern = "hunk", icon = " ", color = "azure" },
+					{ pattern = "hunk", icon = " ", color = "cyan" },
 					{ pattern = "lsp", icon = " ", color = "yellow" },
 					{ pattern = "del", icon = " ", color = "orange" },
+					{ pattern = "over", icon = " ", color = "yellow" },
+					{ pattern = "ai", icon = "󱙺 ", color = "blue" },
+					{ pattern = "pfile", icon = " ", color = "purple" },
+					{ pattern = "undo", icon = "󰕍 ", color = "orange" },
+					{ pattern = "harpoon", icon = "󰛢 ", color = "purple" },
+					{ pattern = "toggle", icon = "󰨚 ", color = "yellow" },
+					{ pattern = "trouble", icon = " ", color = "yellow" },
 				},
 			},
 		},
@@ -128,6 +142,31 @@ require "lazy".setup({
 		lazy = false, -- This plugin is already lazy
 		auto_focus = true,
 	},
+	-- {
+	-- 	"nwiizo/cargo.nvim",
+	-- 	build = "cargo build --release",
+	-- 	config = function()
+	-- 		require("cargo").setup({
+	-- 			float_window = true,
+	-- 			window_width = 0.8,
+	-- 			window_height = 0.8,
+	-- 			border = "rounded",
+	-- 			auto_close = true,
+	-- 			close_timeout = 5000,
+	-- 		})
+	-- 	end,
+	-- 	ft = { "rust" },
+	-- 	cmd = {
+	-- 		"CargoBench",
+	-- 		"CargoBuild",
+	-- 		"CargoClean",
+	-- 		"CargoDoc",
+	-- 		"CargoNew",
+	-- 		"CargoRun",
+	-- 		"CargoTest",
+	-- 		"CargoUpdate",
+	-- 	},
+	-- },
 	{
 		"saecki/crates.nvim",
 		tag = "stable",
@@ -247,12 +286,12 @@ require "lazy".setup({
 				desc = "Buffer Diagnostics (Trouble)",
 			},
 			{
-				"<leader>cs",
+				"<leader>os",
 				"<cmd>Trouble symbols toggle focus=false<cr>",
 				desc = "Symbols (Trouble)",
 			},
 			{
-				"<leader>cl",
+				"<leader>ol",
 				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 				desc = "LSP Definitions / references / ... (Trouble)",
 			},
@@ -265,6 +304,23 @@ require "lazy".setup({
 				"<leader>xQ",
 				"<cmd>Trouble qflist toggle<cr>",
 				desc = "Quickfix List (Trouble)",
+			},
+		},
+	},
+	{ "sindrets/diffview.nvim", command = "DiffviewOpen", cond = is_git_root },
+	{
+		"olimorris/codecompanion.nvim",
+		config = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			strategies = {
+				-- Change the default chat adapter
+				chat = {
+					adapter = "anthropic",
+				},
 			},
 		},
 	},
