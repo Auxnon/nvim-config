@@ -104,6 +104,17 @@ require("formatter").setup({
 		json = {
 			format_prettier,
 		},
+		java = {
+			-- require("formatter.filetypes.java"),
+			function()
+				return {
+					exe = "google-java-format",
+					args = { "-i", "$FILENAME" },
+					stdin = false,
+					stdout = false,
+				}
+			end,
+		},
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
