@@ -7,7 +7,8 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 
 -- here you can setup the language servers
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
+-- local lspconfig = vim.lsp.config
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.foldingRange = {
@@ -24,7 +25,7 @@ require("mason-lspconfig").setup({
 	--  },
 	handlers = {
 		function(server_name)
-			lspconfig[server_name].setup({
+			vim.lsp.config[server_name].setup({
 				capabilities = capabilities,
 			})
 		end,
@@ -32,56 +33,49 @@ require("mason-lspconfig").setup({
 })
 require("ufo").setup()
 
-if lspconfig.lua_ls then
-	lspconfig.lua_ls.setup({
-		settings = {
-			Lua = {
-				-- workspace={
-				--     library={
-				--         [vim.fn.expand'$VIMRUNTIME/lua']=true,
-				--         ['~/nvimout']=true,
-				--     }
-				-- },
-				diagnostics = {
-					globals = { "vim" },
-				},
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			-- workspace={
+			--     library={
+			--         [vim.fn.expand'$VIMRUNTIME/lua']=true,
+			--         ['~/nvimout']=true,
+			--     }
+			-- },
+			diagnostics = {
+				globals = { "vim" },
 			},
 		},
-	})
-end
+	},
+})
 
-if lspconfig.emmet_language_server then
-	lspconfig.emmet_language_server.setup {
-		-- on_attach = on_attach,
-		capabilities = capabilities,
-		filetypes = {
-			"css",
-			"eruby",
-			"html",
-			"javascript",
-			"javascriptreact",
-			"less",
-			"sass",
-			"scss",
-			"svelte",
-			"pug",
-			"typescriptreact",
-			"vue",
-		},
-	}
-end
+vim.lsp.config("emmet_language_server", {
+	capabilities = capabilities,
+	filetypes = {
+		"css",
+		"eruby",
+		"html",
+		"javascript",
+		"javascriptreact",
+		"less",
+		"sass",
+		"scss",
+		"svelte",
+		"pug",
+		"typescriptreact",
+		"vue",
+	},
+})
 
---- we must manually point our lexical lsp to it's install that we built to _build and moved to ~/bin/lexical-lsp 
+--- we must manually point our lexical lsp to it's install that we built to _build and moved to ~/bin/lexical-lsp
 --- https://github.com/lexical-lsp/lexical/blob/main/pages/installation.md#neovim
-if lspconfig.lexical then
-	lspconfig.lexical.setup {
-		cmd = { vim.env.HOME.."/bin/lexical-lsp/package/lexical/bin/start_lexical.sh" },
-		root_dir = function(fname) return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd() end,
-		filetypes = { "elixir", "eelixir", "heex" },
-		-- optional settings
-		settings = {},
-	}
-end
+vim.lsp.config("lexical", {
+	cmd = { vim.env.HOME .. "/bin/lexical-lsp/package/lexical/bin/start_lexical.sh" },
+	root_dir = function(fname) return vim.lsp.config.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd() end,
+	filetypes = { "elixir", "eelixir", "heex" },
+	-- optional settings
+	settings = {},
+})
 
 local cmp = require("cmp")
 -- local cmp_select = {behavior = cmp.SelectBehavior.Select}

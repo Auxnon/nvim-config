@@ -13,6 +13,7 @@ vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end, { desc = "
 vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, { desc = "Hover diagnostic" })
 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
 vim.keymap.set("n", "<leader>l[", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>ll", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>l]", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<C-e>", function() vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR } end)
 vim.keymap.set("n", "<C-f>", vim.cmd.Format)
