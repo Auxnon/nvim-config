@@ -101,7 +101,7 @@ require "lazy".setup({
 		opts = {
 			preset = "modern",
 			spec = {
-				{ "<leader>d", group = "Del" },
+				{ "<leader>d", group = "Deb" },
 				{ "<leader>s", group = "Swap" },
 				{ "<leader>g", group = "Go" },
 				{ "<leader>h", group = "Hunk" },
@@ -118,7 +118,7 @@ require "lazy".setup({
 					{ pattern = "swap", icon = " ", color = "green" },
 					{ pattern = "hunk", icon = " ", color = "cyan" },
 					{ pattern = "lsp", icon = " ", color = "yellow" },
-					{ pattern = "del", icon = " ", color = "orange" },
+					{ pattern = "deb", icon = " ", color = "orange" },
 					{ pattern = "over", icon = " ", color = "yellow" },
 					{ pattern = "ai", icon = "󱙺 ", color = "blue" },
 					{ pattern = "pfile", icon = " ", color = "purple" },
@@ -175,6 +175,7 @@ require "lazy".setup({
 	},
 	"rcarriga/nvim-notify",
 	"mfussenegger/nvim-dap",
+	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	{
 		"stevearc/oil.nvim",
 		---@module 'oil'
@@ -337,32 +338,22 @@ require "lazy".setup({
 		ft = { "go", "gomod" },
 		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
 	},
-    {
-        "mfussenegger/nvim-jdtls",
-    }
-    -- "klen/nvim-test",
+	{
+		"mfussenegger/nvim-jdtls",
+	},
+	{
+		"iabdelkareem/csharp.nvim",
+		dependencies = {
+			"williamboman/mason.nvim", -- Required, automatically installs omnisharp
+			"mfussenegger/nvim-dap",
+			"Tastyep/structlog.nvim", -- Optional, but highly recommended for debugging
+		},
+		config = function()
+		end,
+	},
+	-- "klen/nvim-test",
 })
 
 require("maps")
 
-vim.g.rustaceanvim = {
-	-- Plugin configuration
-	-- tools = {},
-	-- LSP configuration
-	server = {
-		-- on_attach = function(client, bufnr)
-		-- 	-- you can also put keymaps in here
-		-- end,
-		default_settings = {
-			-- rust-analyzer language server configuration
-			["rust-analyzer"] = {
-				diagnostics = {
-					disabled = { "inactive-code" },
-				},
-			},
-		},
-	},
-	-- DAP configuration
-	-- dap = {},
-}
-print "🌻"
+-- print "🌻"

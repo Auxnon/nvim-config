@@ -1,0 +1,26 @@
+-- local dap = require("dap")
+-- local dapui = require("dapui")
+-- dapui.setup()
+
+-- dap.adapters.coreclr = {
+-- 	type = "executable",
+-- 	command = "netcoredbg", -- or the full path to netcoredbg if not in your PATH
+-- 	args = { "--interpreter=vscode" },
+-- }
+--
+-- dap.configurations.cs = {
+-- 	{
+-- 		type = "coreclr",
+-- 		name = "launch - netcoredbg",
+-- 		request = "launch",
+-- 		program = function()
+-- 			return vim.fn.input("Path to .NET executable: ", vim.fn.getcwd() .. "/bin/Debug/net8.0/", "file")
+-- 		end,
+-- 		cwd = function() return vim.fn.getcwd() end,
+-- 		console = "integratedTerminal",
+-- 	},
+-- 	-- Add other configurations as needed (e.g., attach)
+-- }
+--
+-- vim.keymap.set("n", "<leader>dd", function() dapui.toggle() end, { desc = "DAPUI toggle" })
+-- vim.keymap.set("n", "<leader>db", "<CMD>:DapToggleBreakpoint<CR>", { desc = "Toggle breakpoint" })

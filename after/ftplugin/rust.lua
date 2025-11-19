@@ -1,4 +1,5 @@
-vim.keymap.set("n", "<C-f>", "<CMD>:RustFmt<CR>", { desc = "Rust format" })
+vim.keymap.set("n","<C-f>","<CMD>:RustFmt<CR>",{desc="Rust format"})
+vim.keymap.set("n","<leader>lt","<CMD>:RustLsp run<CR>",{desc="Rust test near"})
 
 local bufnr = vim.api.nvim_get_current_buf()
 vim.keymap.set("n", "<leader>ca", function()

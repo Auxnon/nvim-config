@@ -22,13 +22,12 @@ require("mason-lspconfig").setup({
 	--  ensure_installed = {
 	-- 'rust_analyzer',
 	--  },
-	handlers = {
-		function(server_name)
-			vim.lsp.config[server_name].setup({
-				capabilities = capabilities,
-			})
-		end,
-	},
+    automatic_enable = true,
+    handlers = {
+        function(server_name)
+          require("lspconfig")[server_name].setup({})
+        end,
+    },
 })
 require("ufo").setup()
 
@@ -108,7 +107,7 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 	sources = cmp.config.sources({
-		{ name = "copilot", group_index = 2 },
+		-- { name = "copilot", group_index = 2 },
 		{ name = "nvim_lsp" },
 		-- { name = 'vsnip' }, -- For vsnip users.
 		{ name = "luasnip" }, -- For luasnip users.

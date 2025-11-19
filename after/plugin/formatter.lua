@@ -115,6 +115,16 @@ require("formatter").setup({
 				}
 			end,
 		},
+		dockerfile = {
+			function()
+				return {
+					exe = "dockerfmt",
+					args = { "$FILENAME" },
+					stdin = true,
+					stdout = true,
+				}
+			end,
+		},
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
