@@ -141,6 +141,7 @@ require "lazy".setup({
 		version = "^5", -- Recommended
 		lazy = false, -- This plugin is already lazy
 		auto_focus = true,
+        
 	},
 	-- {
 	-- 	"nwiizo/cargo.nvim",
@@ -344,4 +345,24 @@ require "lazy".setup({
 
 require("maps")
 
+vim.g.rustaceanvim = {
+	-- Plugin configuration
+	-- tools = {},
+	-- LSP configuration
+	server = {
+		-- on_attach = function(client, bufnr)
+		-- 	-- you can also put keymaps in here
+		-- end,
+		default_settings = {
+			-- rust-analyzer language server configuration
+			["rust-analyzer"] = {
+				diagnostics = {
+					disabled = { "inactive-code" },
+				},
+			},
+		},
+	},
+	-- DAP configuration
+	-- dap = {},
+}
 print "🌻"

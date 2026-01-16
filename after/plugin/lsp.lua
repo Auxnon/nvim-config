@@ -6,7 +6,6 @@ lsp_zero.on_attach(function(client, bufnr)
 	lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
--- here you can setup the language servers
 -- local lspconfig = require("lspconfig")
 -- local lspconfig = vim.lsp.config
 
