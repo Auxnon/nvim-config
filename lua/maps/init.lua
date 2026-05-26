@@ -41,8 +41,10 @@ k.set("n", "Y", function()
 	end
 	vim.fn.setreg(LocalVim and "+" or "", res)
 end, { desc = "copy one or more lines stripping trailing whitespace and new lines into one" })
-require("leap").create_default_mappings()
-require("leap.user").set_repeat_keys("<enter>", "<backspace>")
+-- require("leap").create_default_mappings()
+-- require("leap.user").set_repeat_keys("<enter>", "<backspace>")
+vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
+vim.keymap.set('n',               'S', '<Plug>(leap-from-window)')
 
 k.set("n", "ds", "<Plug>Dsurround")
 k.set("n", "cs", "<Plug>Csurround")

@@ -213,7 +213,7 @@ require "lazy".setup({
 		dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 	},
-	"ggandor/leap.nvim",
+	"https://codeberg.org/andyg/leap.nvim",
 	"wellle/targets.vim",
 	{
 		"scottmckendry/cyberdream.nvim",
