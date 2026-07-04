@@ -11,3 +11,21 @@ vim.keymap.set(
 	function() vim.cmd.RustLsp({ "hover", "actions" }) end,
 	{ silent = true, buffer = bufnr }
 )
+
+
+vim.g.rustaceanvim = {
+  server = {
+    settings = {
+      ["rust-analyzer"] = {
+        hover = {
+          memoryLayout = {
+            enable = true,    -- Enables the overall memory layout info
+            size = "bytes",   -- Displays size in bytes (can also be "bits")
+            alignment = true, -- Shows alignment constraints
+            niches = true,     -- Shows available niches for optimization
+          },
+        },
+      },
+    },
+  },
+}

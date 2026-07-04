@@ -101,6 +101,7 @@ require "lazy".setup({
 		opts = {
 			preset = "modern",
 			spec = {
+				{ "<leader>b", group = "Debug" },
 				{ "<leader>d", group = "Del" },
 				{ "<leader>s", group = "Swap" },
 				{ "<leader>g", group = "Go" },
@@ -114,6 +115,7 @@ require "lazy".setup({
 			},
 			icons = {
 				rules = {
+					{ pattern = "debug", icon = " ", color = "red" },
 					{ pattern = "go", icon = " ", color = "purple" },
 					{ pattern = "swap", icon = " ", color = "green" },
 					{ pattern = "hunk", icon = " ", color = "cyan" },
@@ -174,6 +176,18 @@ require "lazy".setup({
 	},
 	"rcarriga/nvim-notify",
 	"mfussenegger/nvim-dap",
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+	},
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		dependencies = { "mfussenegger/nvim-dap" },
+	},
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+	},
 	{
 		"stevearc/oil.nvim",
 		---@module 'oil'
@@ -350,8 +364,8 @@ require "lazy".setup({
 			local basename = vim.fs.basename(cwd)
 			_99.setup({
 				-- provider = _99.Providers.ClaudeCodeProvider,  -- default: OpenCodeProvider
-                provider = _99.Providers.OpenCodeProvider,
-                model = "minimax-coding-plan/MiniMax-M2.7",
+				provider = _99.Providers.OpenCodeProvider,
+				model = "minimax-coding-plan/MiniMax-M2.7",
 				logger = {
 					level = _99.DEBUG,
 					path = "/tmp/" .. basename .. ".99.debug",
@@ -382,6 +396,35 @@ require "lazy".setup({
 			vim.keymap.set("n", "<leader>9s", function() _99.search() end)
 		end,
 	},
+	{
+		"nvim-telescope/telescope-file-browser.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+	},
+    {
+    "uga-rosa/ccc.nvim",
+    cmd = { "CccPick", "CccConvert" }, -- Lazy-loads the plugin when you use these commands
+    keys = {
+      { "<leader>cp", "<cmd>CccPick<cr>", desc = "Color Picker" },
+      { "<leader>cc", "<cmd>CccConvert<cr>", desc = "Color Convert" },
+    },
+    config = function()
+      local ccc = require("ccc")
+      
+      -- Set custom highlights, inputs, and outputs
+      ccc.setup({
+        highlighter = {
+          auto_enable = true, -- Highlights color codes in your file automatically
+          -- lsp = false,        -- Set to true if you are using an external LSP for highlights
+        },
+        inputs = {
+          ccc.input.hsl,
+          ccc.input.rgb,
+          ccc.input.cmyk,
+        },
+        filetypes={'css'},
+      })
+    end,
+  },
 	-- "klen/nvim-test",
 })
 
